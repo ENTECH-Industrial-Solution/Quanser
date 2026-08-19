@@ -8,7 +8,7 @@ quanser_host_peripheral_client.exe -q
 timeout -t 5 /NOBREAK > nul
 
 echo Starting physical controller...
-cd "C:\Users\Jirapat Chumaungphan\Documents\Quanser\QCar2\Linux\Physical\Simulink"
+cd /d "%~dp0Simulink"
 start QCar2_Physical.slx
 
 timeout -t 10 /NOBREAK > nul

@@ -8,8 +8,14 @@ from datetime import datetime
 from paramiko import SSHClient, AutoAddPolicy
 from pal.utilities.probe import ObserverAgent
 
-# Ensure QLabs library path is loaded if needed
-qvl_path = r"C:\Users\Jirapat Chumaungphan\Documents\Quanser\0_libraries\python"
+# Ensure QLabs library path is loaded if needed.
+# Point QUANSER_ACADEMIC_RESOURCES_PATH at your local clone of the official
+# quanser/Quanser_Academic_Resources repo if it isn't a sibling of this repo.
+quanser_root = os.environ.get(
+    "QUANSER_ACADEMIC_RESOURCES_PATH",
+    os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")),
+)
+qvl_path = os.path.join(quanser_root, "0_libraries", "python")
 if qvl_path not in sys.path:
     sys.path.append(qvl_path)
 
@@ -121,7 +127,10 @@ try:
     time.sleep(1)
 
     # Sync probe script to Jetson
-    probe_script_path = r"C:\Users\Jirapat Chumaungphan\Documents\Quanser\5_research\sdcs\qcar2\hardware\applications\360_vision\QCar2_imaging_360_probe.py"
+    probe_script_path = os.path.join(
+        quanser_root, "5_research", "sdcs", "qcar2", "hardware", "applications", "360_vision",
+        "QCar2_imaging_360_probe.py",
+    )
     if os.path.exists(probe_script_path):
         print("Syncing QCar2_imaging_360_probe.py to Jetson...")
         sftp = client.open_sftp()

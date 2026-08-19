@@ -94,11 +94,17 @@ try:
     sftp = client.open_sftp()
     
     # Sync main script
-    local_script = r"C:\Users\Jirapat Chumaungphan\Documents\Quanser\QCar2\QCar2\qcar2_physical_lidar_avoidance.py"
+    local_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "qcar2_physical_lidar_avoidance.py")
     sftp.put(local_script, "/home/nvidia/Documents/qcar2_physical_lidar_avoidance.py")
 
-    # Sync qvl library folder so Jetson has full QLabs access
-    local_qvl = r"C:\Users\Jirapat Chumaungphan\Documents\Quanser\0_libraries\python\qvl"
+    # Sync qvl library folder so Jetson has full QLabs access.
+    # Point QUANSER_ACADEMIC_RESOURCES_PATH at your local clone of the official
+    # quanser/Quanser_Academic_Resources repo if it isn't a sibling of this repo.
+    quanser_root = os.environ.get(
+        "QUANSER_ACADEMIC_RESOURCES_PATH",
+        os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")),
+    )
+    local_qvl = os.path.join(quanser_root, "0_libraries", "python", "qvl")
     sftp_sync_dir(sftp, local_qvl, "/home/nvidia/Documents/qvl")
     
     sftp.close()
