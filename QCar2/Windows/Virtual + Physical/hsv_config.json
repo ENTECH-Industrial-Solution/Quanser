@@ -1,0 +1,23 @@
+{
+  "yellow_lower": [
+    0,
+    0,
+    0
+  ],
+  "yellow_upper": [
+    55,
+    255,
+    255
+  ],
+  "white_lower": [
+    61,
+    39,
+    185
+  ],
+  "white_upper": [
+    157,
+    106,
+    236
+  ],
+  "crop_top_pct": 0.55
+}

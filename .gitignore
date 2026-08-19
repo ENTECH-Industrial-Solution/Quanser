@@ -1,0 +1,20 @@
+# Simulink / QUARC build artifacts
+*.slxc
+*.autosave
+*.slx.r20*
+*.mdl.r20*
+*.rt-win64
+*.rt-linux_*
+*_quarc_win64/
+*_quarc_linux_*/
+slprj/
+*.mexw64
+*.mexa64
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

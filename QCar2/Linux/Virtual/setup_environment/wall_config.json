@@ -1,0 +1,63 @@
+{
+  "description": "QCar2 QLabs Custom Wall Configuration File",
+  "version": "1.0",
+  "auto_reset_scene": false,
+  "walls": [
+    {
+      "name": "Arena Box Enclosure",
+      "type": "enclosure",
+      "id": 200,
+      "center": [12.0, 11.0],
+      "width": 12.0,
+      "length": 20.0,
+      "height": 0.8,
+      "enabled": true
+    },
+    {
+      "name": "Corner Curved Wall Arc",
+      "type": "curved",
+      "id": 400,
+      "center": [10.0, 8.0],
+      "radius": 3.5,
+      "start_angle": 0.0,
+      "end_angle": 90.0,
+      "num_segments": 10,
+      "height": 0.8,
+      "thickness": 0.3,
+      "color": [0.2, 0.7, 0.9],
+      "enabled": true
+    },
+    {
+      "name": "Roundabout Circular Wall",
+      "type": "circular",
+      "id": 500,
+      "center": [6.0, 11.0],
+      "radius": 2.5,
+      "num_segments": 16,
+      "height": 0.8,
+      "thickness": 0.3,
+      "color": [0.2, 0.9, 0.4],
+      "enabled": true
+    },
+    {
+      "name": "Front Obstacle Wall 1",
+      "type": "straight",
+      "id": 1,
+      "location": [14.0, 11.0, 0.0],
+      "rotation": [0.0, 0.0, 90.0],
+      "scale": [3.5, 0.4, 1.0],
+      "color": [1.0, 0.5, 0.0],
+      "enabled": true
+    },
+    {
+      "name": "Side Obstacle Wall 2",
+      "type": "straight",
+      "id": 2,
+      "location": [8.0, 11.0, 0.0],
+      "rotation": [0.0, 0.0, 0.0],
+      "scale": [3.0, 0.4, 1.0],
+      "color": [0.9, 0.1, 0.1],
+      "enabled": true
+    }
+  ]
+}
