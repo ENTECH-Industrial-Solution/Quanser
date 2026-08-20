@@ -36,10 +36,10 @@ python resources_qlab_setup/SetupEnvironment.py UseWeather
 echo Running the cars
 quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car1.rt-win64 -virtual_only 0 -physical_uri tcpip://%QCAR_IP%:777
 timeout -t 1 /NOBREAK > nul
-quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car2.rt-win64
-timeout -t 1 /NOBREAK > nul
-quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car3.rt-win64
-timeout -t 1 /NOBREAK > nul
+:: quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car2.rt-win64
+:: timeout -t 1 /NOBREAK > nul
+:: quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car3.rt-win64
+:: timeout -t 1 /NOBREAK > nul
 quarc_run -D -r -t tcpip://localhost:17000 Simulink\Infrastructure_Server.rt-win64
 timeout -t 1 /NOBREAK > nul
 
