@@ -1,12 +1,16 @@
 import socket
 import sys
 import os
+import json
 import time
 import cv2
 import numpy as np
 from datetime import datetime
 from paramiko import SSHClient, AutoAddPolicy
 from pal.utilities.probe import ObserverAgent
+
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "network_config.json")) as f:
+    _net_cfg = json.load(f)
 
 # Ensure QLabs library path is loaded if needed.
 # Point QUANSER_ACADEMIC_RESOURCES_PATH at your local clone of the official
@@ -31,19 +35,19 @@ def get_local_ip():
     '''Find local Host PC IP address connected to QCar2 network'''
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        s.connect(('192.168.2.11', 1))
+        s.connect((_net_cfg["qcar_ip"], 1))
         IP = s.getsockname()[0]
     except Exception:
         try:
             IP = socket.gethostbyname(socket.gethostname())
         except Exception:
-            IP = '192.168.2.82'
+            IP = _net_cfg["host_pc_ip_fallback"]
         finally:
             s.close()
     return IP
 
 pc_ip = get_local_ip()
-qcar_ip = "192.168.2.11"
+qcar_ip = _net_cfg["qcar_ip"]
 
 print("==================================================================")
 print(" Physical QCar2 - 360 Panoramic Vision with YOLOv8 Detection")

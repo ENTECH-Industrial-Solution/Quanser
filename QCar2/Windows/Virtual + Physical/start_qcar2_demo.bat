@@ -1,5 +1,7 @@
 @echo off
 
+for /f "usebackq delims=" %%A in (`python -c "import json;print(json.load(open('network_config.json'))['qcar_ip'])"`) do set QCAR_IP=%%A
+
 echo Stopping all running models and clients...
 quarc_run -q -Q *.rt-win64
 quanser_host_peripheral_client.exe -q
@@ -32,7 +34,7 @@ echo setting up Cityscape
 python resources_qlab_setup/SetupEnvironment.py UseWeather
 
 echo Running the cars
-quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car1.rt-win64 -virtual_only 0 -physical_uri tcpip://192.168.2.11:777
+quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car1.rt-win64 -virtual_only 0 -physical_uri tcpip://%QCAR_IP%:777
 timeout -t 1 /NOBREAK > nul
 quarc_run -D -r -t tcpip://localhost:17000 Simulink\QCar2_Virtual_Car2.rt-win64
 timeout -t 1 /NOBREAK > nul
@@ -42,4 +44,4 @@ quarc_run -D -r -t tcpip://localhost:17000 Simulink\Infrastructure_Server.rt-win
 timeout -t 1 /NOBREAK > nul
 
 echo Starting the Traffic Controller
-python resources_qlab_setup/Traffic_Controller.py -ip 192.168.2.11
+python resources_qlab_setup/Traffic_Controller.py -ip %QCAR_IP%

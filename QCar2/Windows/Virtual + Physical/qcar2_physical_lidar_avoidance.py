@@ -1,10 +1,20 @@
 import time
+import json
 import numpy as np
 import cv2
 import argparse
 import sys
 import os
 import math
+
+def _default_host_ip():
+    '''Read host_pc_ip_fallback from network_config.json if it was synced alongside this script'''
+    try:
+        cfg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "network_config.json")
+        with open(cfg_path) as f:
+            return json.load(f)["host_pc_ip_fallback"]
+    except Exception:
+        return "192.168.2.82"
 
 # Add local directory to sys.path so qvl module can be loaded if synced locally
 sys.path.append(os.path.expanduser('~/Documents'))
@@ -36,7 +46,7 @@ except ImportError:
 # ==============================================================================
 
 parser = argparse.ArgumentParser(description="Physical LiDAR Detection + Virtual SDCSRoadMap Pure Pursuit Navigation (Option 1)")
-parser.add_argument("-ip", "--host_ip", type=str, default="192.168.2.82", help="Host PC IP for Probe Display")
+parser.add_argument("-ip", "--host_ip", type=str, default=_default_host_ip(), help="Host PC IP for Probe Display")
 parser.add_argument("-qlabs_ip", "--qlabs_ip", type=str, default="localhost", help="QLabs Server IP Address")
 parser.add_argument("-actor", "--actor_number", type=int, default=1, help="Virtual QCar2 Actor Number in QLabs")
 parser.add_argument("--physical_throttle", type=float, default=0.0, help="Physical car throttle (default: 0.0 for wheel steering sync only)")

@@ -1,6 +1,8 @@
 import time
 import math
 import struct
+import json
+import os
 import keyboard
 import argparse
 
@@ -9,9 +11,17 @@ import urllib.request, sys
 from urllib.error import HTTPError, URLError
 from socket import timeout
 
+def _default_traffic_ip():
+    '''Read traffic_light_ip from ../network_config.json'''
+    try:
+        cfg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "network_config.json")
+        with open(cfg_path) as f:
+            return json.load(f)["traffic_light_ip"]
+    except Exception:
+        return "192.168.2.20"
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-ip','--traffic_ip', type=str, default='192.168.2.20', help='IP of the traffic light')
+parser.add_argument('-ip','--traffic_ip', type=str, default=_default_traffic_ip(), help='IP of the traffic light')
 args = parser.parse_args()
 ip = args.traffic_ip
 

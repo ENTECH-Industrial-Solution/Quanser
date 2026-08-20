@@ -1,5 +1,6 @@
 import socket
 import sys
+import json
 import time
 import cv2
 import numpy as np
@@ -12,23 +13,27 @@ from pal.utilities.probe import ObserverAgent
 # Physical QCar2 LiDAR Avoidance & Virtual SDCSRoadMap Control Launcher (PC)
 # ==============================================================================
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(SCRIPT_DIR, "network_config.json")) as f:
+    _net_cfg = json.load(f)
+
 def get_local_ip():
     '''Find local Host PC IP address connected to QCar2 network'''
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        s.connect(('192.168.2.56', 1))
+        s.connect((_net_cfg["qcar_ip"], 1))
         IP = s.getsockname()[0]
     except Exception:
         try:
             IP = socket.gethostbyname(socket.gethostname())
         except Exception:
-            IP = '192.168.2.82'
+            IP = _net_cfg["host_pc_ip_fallback"]
     finally:
         s.close()
     return IP
 
 pc_ip = get_local_ip()
-qcar_ip = '192.168.2.56'
+qcar_ip = _net_cfg["qcar_ip"]
 
 print("=============================================================")
 print(" Option 1: SDCSRoadMap Pure Pursuit & Left Avoidance Launcher")
@@ -93,9 +98,10 @@ try:
     print("Syncing qcar2_physical_lidar_avoidance.py and qvl library to QCar2...")
     sftp = client.open_sftp()
     
-    # Sync main script
-    local_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "qcar2_physical_lidar_avoidance.py")
+    # Sync main script + network config (single source of truth for QCar2/host IPs)
+    local_script = os.path.join(SCRIPT_DIR, "qcar2_physical_lidar_avoidance.py")
     sftp.put(local_script, "/home/nvidia/Documents/qcar2_physical_lidar_avoidance.py")
+    sftp.put(os.path.join(SCRIPT_DIR, "network_config.json"), "/home/nvidia/Documents/network_config.json")
 
     # Sync qvl library folder so Jetson has full QLabs access.
     # Point QUANSER_ACADEMIC_RESOURCES_PATH at your local clone of the official

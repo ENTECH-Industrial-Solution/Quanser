@@ -10,12 +10,16 @@
 # client.close()
 
 from paramiko import SSHClient, AutoAddPolicy
+import json
 import os
 import time
 
-LOCAL_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "yolov8_client_img_stream.py")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+LOCAL_SCRIPT = os.path.join(SCRIPT_DIR, "yolov8_client_img_stream.py")
 REMOTE_SCRIPT = "/home/nvidia/Documents/yolov8_client_img_stream.py"
-QCAR_IP = "192.168.2.11"
+
+with open(os.path.join(SCRIPT_DIR, "network_config.json")) as f:
+    QCAR_IP = json.load(f)["qcar_ip"]
 
 client = SSHClient()
 client.load_system_host_keys()

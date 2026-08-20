@@ -1,0 +1,5 @@
+{
+  "qcar_ip": "192.168.2.56",
+  "traffic_light_ip": "192.168.2.20",
+  "host_pc_ip_fallback": "192.168.2.82"
+}
