@@ -1,0 +1,8 @@
+paramiko
+opencv-python
+numpy
+
+# Optional - only needed for the 360-vision YOLOv8 detection overlay
+# (QCar2/Windows/Virtual + Physical/view_physical_360_vision.py and its
+# Linux counterpart). Comment out if you don't need it.
+ultralytics
