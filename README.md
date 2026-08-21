@@ -20,6 +20,13 @@ QCar2/
 Qube_servo2/               # (currently empty)
 ```
 
+## Setup
+
+Run [`install\install.bat`](install/install.bat) to install the Python packages this
+repo depends on and check whether the rest of the prerequisites below (QLabs, QUARC, the
+Quanser Python SDK) are in place. See [`install/README.md`](install/README.md) for
+details on what it checks and doesn't do.
+
 ## Prerequisites
 
 1. **MATLAB/Simulink** with **QUARC** (Quanser's real-time target support package) —
